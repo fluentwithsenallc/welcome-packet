@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan · Hitos de Fluidez</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#000;font-family:'Inter',sans-serif;color:#fff;padding:0 0 80px;position:relative;overflow-x:hidden;min-height:100vh}
+.orb{position:fixed;border-radius:50%;pointer-events:none;filter:blur(100px);opacity:.13;z-index:0}
+.o1{width:500px;height:500px;background:#0d1838;top:-140px;left:-180px}
+.o2{width:400px;height:400px;background:#1a1a2e;top:50%;right:-120px}
+.o3{width:320px;height:320px;background:#16112a;bottom:150px;left:30%}
+
+.hdr{text-align:center;padding:52px 20px 36px;position:relative;z-index:2}
+.badge{display:inline-block;font-size:10px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:#c9a84c;border:1px solid rgba(201,168,76,.35);border-radius:20px;padding:5px 16px;margin-bottom:16px;background:rgba(201,168,76,.06)}
+.cname{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:-.3px}
+.cgoal{font-size:14px;color:#fff;margin-bottom:28px;font-style:normal}
+.prog-wrap{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:40px;padding:10px 20px}
+.prog-lbl{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.5px}
+.prog-bg{width:150px;height:4px;background:rgba(255,255,255,.08);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#a07820,#c9a84c);border-radius:4px;transition:width 1.4s cubic-bezier(.4,0,.2,1)}
+.prog-pct{font-size:12px;color:#c9a84c;font-weight:600;min-width:32px}
+
+.tl{position:relative;max-width:700px;margin:0 auto;padding:0 20px;z-index:2}
+.spine{position:absolute;left:50%;transform:translateX(-50%);top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,rgba(201,168,76,.22) 6%,rgba(201,168,76,.1) 88%,transparent);z-index:0}
+.row{display:flex;align-items:flex-start;position:relative;margin:8px 0;z-index:1;min-height:10px}
+.side{width:calc(50% - 30px)}
+.sl{padding-right:14px}
+.sr{padding-left:14px}
+
+.node{position:absolute;left:50%;transform:translateX(-50%);top:22px;width:12px;height:12px;border-radius:50%;border:2px solid #c9a84c;background:#000;z-index:3;transition:transform .2s,box-shadow .2s,background .3s;cursor:pointer}
+.node:hover{transform:translateX(-50%) scale(1.5);box-shadow:0 0 14px rgba(201,168,76,.5)}
+.node.done{background:#c9a84c}
+
+.card{background:rgba(10,14,26,.95);border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:16px 17px 16px 21px;position:relative;transition:transform .22s,border-color .3s,box-shadow .3s,background .3s;width:100%;display:block;cursor:pointer;user-select:none;-webkit-user-select:none}
+.card:hover{transform:translateY(-3px);border-color:rgba(201,168,76,.35);box-shadow:0 8px 28px rgba(201,168,76,.1)}
+.card.done{background:rgba(201,168,76,.07);border-color:rgba(201,168,76,.3)}
+.card.done:hover{border-color:rgba(201,168,76,.5);box-shadow:0 8px 28px rgba(201,168,76,.16)}
+
+.accent{position:absolute;left:0;top:18px;bottom:18px;width:3px;border-radius:0 2px 2px 0;background:#c9a84c}
+.sl .accent{left:auto;right:0;border-radius:2px 0 0 2px}
+.sl .card{box-shadow:0 0 0 1px rgba(255,255,255,.07),inset -6px 0 12px rgba(201,168,76,.05)}
+.sl .card:hover{box-shadow:0 8px 28px rgba(201,168,76,.1),inset -8px 0 16px rgba(201,168,76,.12)}
+.sl .card.done{box-shadow:0 0 0 1px rgba(201,168,76,.3),inset -6px 0 12px rgba(201,168,76,.08)}
+.sl .card.done:hover{box-shadow:0 8px 28px rgba(201,168,76,.16),inset -8px 0 16px rgba(201,168,76,.15)}
+.cdate{font-size:9px;letter-spacing:1.8px;text-transform:uppercase;font-weight:600;color:#c9a84c;margin-bottom:5px}
+.ctitle{font-size:13px;font-weight:700;color:#fff;margin-bottom:5px;line-height:1.3}
+.cdesc{font-size:11px;color:rgba(255,255,255,.65);line-height:1.6}
+.cdesc b{color:#fff;font-weight:700}
+.cgoal-row{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.06);font-size:10px;color:rgba(255,255,255,.45);display:flex;align-items:flex-start;gap:6px;line-height:1.45}
+.gdot{width:4px;height:4px;border-radius:50%;background:#c9a84c;flex-shrink:0;margin-top:4px}
+.done-stamp{display:none;align-items:center;gap:5px;font-size:9px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:#c9a84c;margin-top:10px;padding-top:10px;border-top:1px solid rgba(201,168,76,.15)}
+.card.done .done-stamp{display:inline-flex}
+
+.hint{font-size:10px;color:rgba(255,255,255,.2);text-align:center;margin:6px 0 14px;letter-spacing:.5px}
+.spacer{height:12px}
+
+.finish-wrap{max-width:700px;margin:32px auto 0;padding:0 20px;position:relative;z-index:2}
+.finish-line{background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.3);border-radius:18px;padding:32px 28px;text-align:center;position:relative;overflow:hidden}
+.finish-glow{position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:rgba(201,168,76,.08);border-radius:50%;pointer-events:none;filter:blur(40px)}
+.finish-icon{width:52px;height:52px;border-radius:50%;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.35);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:22px;color:#c9a84c}
+.finish-title{font-size:22px;font-weight:700;color:#fff;margin-bottom:6px}
+.finish-name{font-size:14px;color:#c9a84c;font-weight:600;margin-bottom:10px;letter-spacing:.5px}
+.finish-desc{font-size:13px;color:rgba(255,255,255,.55);line-height:1.65;max-width:400px;margin:0 auto 20px}
+.finish-milestone{display:inline-block;background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.25);border-radius:10px;padding:10px 20px;font-size:11px;color:rgba(255,255,255,.6);line-height:1.55;max-width:420px}
+.finish-milestone strong{color:#c9a84c;font-weight:600}
+</style>
+</head>
+<body>
+
+<div class="orb o1"></div>
+<div class="orb o2"></div>
+<div class="orb o3"></div>
+
+<div class="hdr">
+  <div style="font-size:10px;color:rgba(255,255,255,.4);margin-bottom:12px;letter-spacing:.5px">Logros de ejemplo</div>
+  <div class="badge">Logros de Fluidez</div>
+  <div class="cname">Juan</div>
+  <div class="cgoal">Habla inglés con confianza y facilidad — en cualquier sala, con cualquier persona.</div>
+  <div class="prog-wrap">
+    <span class="prog-lbl">Progreso del viaje</span>
+    <div class="prog-bg"><div class="prog-fill" id="pf" style="width:25%"></div></div>
+    <span class="prog-pct" id="pp">25%</span>
+  </div>
+</div>
+
+<div class="tl">
+  <div class="spine"></div>
+  <div class="hint">Toca una tarjeta para marcarla como completada</div>
+
+  <!-- Week 1 -->
+  <div class="row">
+    <div class="side sl">
+      <div class="card done" id="card-1" onclick="toggle(1)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 1 · 9 de mayo</div>
+        <div class="ctitle">Preguntas simples</div>
+        <div class="cdesc">Puedes hacer preguntas simples y responder correctamente sin vacilación ni traducción.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Hacer y responder preguntas simples con confianza en una sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+    <div class="node done" id="node-1" onclick="toggle(1)"></div>
+    <div class="side sr"></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 2 -->
+  <div class="row">
+    <div class="side sl"></div>
+    <div class="node done" id="node-2" onclick="toggle(2)"></div>
+    <div class="side sr">
+      <div class="card done" id="card-2" onclick="toggle(2)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 2 · 16 de mayo</div>
+        <div class="ctitle">Artículos y preposiciones</div>
+        <div class="cdesc">Conoces artículos y preposiciones como <b>a, the, in, on, at,</b> y <b>to.</b> Entiendes cuándo usarlos.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Demuestra una comprensión básica sólida de artículos y preposiciones.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 3 -->
+  <div class="row">
+    <div class="side sl">
+      <div class="card" id="card-3" onclick="toggle(3)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 3 · 23 de mayo</div>
+        <div class="ctitle">Tercera persona</div>
+        <div class="cdesc"><b>He works. She has. It takes.</b> Esta es la semana que dominas la tercera persona singular en presente y pasado simples.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Usa la tercera persona correctamente con 85% de precisión en una sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+    <div class="node" id="node-3" onclick="toggle(3)"></div>
+    <div class="side sr"></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 4 -->
+  <div class="row">
+    <div class="side sl"></div>
+    <div class="node" id="node-4" onclick="toggle(4)"></div>
+    <div class="side sr">
+      <div class="card" id="card-4" onclick="toggle(4)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 4 · 30 de mayo</div>
+        <div class="ctitle">Pasado simple</div>
+        <div class="cdesc">Dejarás de vivir solo en el presente, <b>I went. She said. We had.</b> Regular e irregular, sin volver al presente al hablar.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Usa el pasado con 95% de precisión en una sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 5 -->
+  <div class="row">
+    <div class="side sl">
+      <div class="card" id="card-5" onclick="toggle(5)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 5 · 6 de junio</div>
+        <div class="ctitle">Negación</div>
+        <div class="cdesc"><b>I don't. He doesn't. I didn't.</b> No <b>I no like</b> o <b>I didn't do nothing.</b> Usarás patrones de negación en inglés en lugar de traducir del español.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Usa la negación correctamente con 95% de precisión en una sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+    <div class="node" id="node-5" onclick="toggle(5)"></div>
+    <div class="side sr"></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 6 -->
+  <div class="row">
+    <div class="side sl"></div>
+    <div class="node" id="node-6" onclick="toggle(6)"></div>
+    <div class="side sr">
+      <div class="card" id="card-6" onclick="toggle(6)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 6 · 13 de junio</div>
+        <div class="ctitle">Comandos</div>
+        <div class="cdesc"><b>Do this. Read that. Tell me.</b> No <b>you do this,</b> solo el comando, directo y claro. También sabrás exactamente cuándo usarlo.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Usa comandos correctamente al hablar y reconoce cuando Sena da una indicación durante la sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 7 -->
+  <div class="row">
+    <div class="side sl">
+      <div class="card" id="card-7" onclick="toggle(7)">
+        <div class="accent"></div>
+        <div class="cdate">Semana 7 · 20 de junio</div>
+        <div class="ctitle">Pronunciación</div>
+        <div class="cdesc">Así es como suena el inglés cuando los hablantes nativos hablan rápido. <b>What are you doing? I'm thinking about going to the gym.</b> Lo escucharás, lo entenderás y lo usarás en tu comunicación diaria.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Habla con sonidos conectados y contracciones naturalmente durante toda la sesión de 60 minutos.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+    <div class="node" id="node-7" onclick="toggle(7)"></div>
+    <div class="side sr"></div>
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- Week 8 -->
+  <div class="row">
+    <div class="side sl"></div>
+    <div class="node" id="node-8" onclick="toggle(8)" style="border-color:#c9a84c;box-shadow:0 0 0 3px rgba(201,168,76,.15)"></div>
+    <div class="side sr">
+      <div class="card" id="card-8" onclick="toggle(8)" style="border-color:rgba(201,168,76,.28);box-shadow:0 0 0 1px rgba(201,168,76,.1)">
+        <div class="accent"></div>
+        <div class="cdate" style="letter-spacing:2px">Semana 8 · 27 de junio · <span style="opacity:.7">La línea de llegada</span></div>
+        <div class="ctitle">Confianza y independencia</div>
+        <div class="cdesc">Hablarás con la confianza de alguien que ha pasado 8 semanas construyendo habilidades reales.</div>
+        <div class="cgoal-row"><span class="gdot"></span>Mantén una conversación genuina en inglés con fluidez y confianza, usando cada habilidad que construiste.</div>
+        <div class="done-stamp"><i class="ti ti-circle-check"></i>Logrado</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="finish-wrap">
+  <div class="finish-line">
+    <div class="finish-glow"></div>
+    <div class="finish-icon"><i class="ti ti-star"></i></div>
+    <div class="finish-title">La línea de llegada</div>
+    <div class="finish-name">Juan · Semana 8 · 27 de junio</div>
+    <div class="finish-desc">Mantén una conversación genuina en inglés con fluidez y confianza, usando cada habilidad que construiste.</div>
+  </div>
+</div>
+
+<script>
+var state = [false, true, true, false, false, false, false, false, false];
+
+function pct() {
+  var done = state.filter(Boolean).length;
+  var p = Math.round((done / 8) * 100);
+  document.getElementById('pf').style.width = p + '%';
+  document.getElementById('pp').textContent = p + '%';
+}
+
+function toggle(n) {
+  state[n] = !state[n];
+  var card = document.getElementById('card-' + n);
+  var node = document.getElementById('node-' + n);
+  if (state[n]) {
+    card.classList.add('done');
+    node.classList.add('done');
+  } else {
+    card.classList.remove('done');
+    node.classList.remove('done');
+  }
+  pct();
+}
+
+pct();
+</script>
+</body>
+</html>
